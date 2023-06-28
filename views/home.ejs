@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>To-Do App</title>
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="/css/home.css">
+    
+  </head>
+
+  <body>
+    <div class="center-div">
+      <div class=" mt-5">
+        <h1>To-Do App</h1>
+        <form class="mb-4" id="myForm" >
+          <div class="form-group px-3 border-top border-bottom mb-0">
+            <label for="task">Task Description</label>
+            <input
+              type="text"
+              class="form-control"
+              id="task"
+              name="task"
+              required
+              placeholder="Enter task description"
+              onfocus="highlightElements(this)"
+              onblur="unhighlightElements(this)"
+            />
+          </div>
+
+          <div class="form-group border-bottom">
+            <div class="col-12">
+            <div class="row">
+              <div class="col border-right ">
+                
+                <label for="category">Category</label>
+                <select id="category" name="category" class="form-control" 
+                required onfocus="highlightElements(this)"onblur="unhighlightElements(this)">
+                  <option value="" disabled>Choose category</option>
+                  <option>Personal</option>
+                  <option>Work</option>
+                  <option>School</option>
+                  <option>Cleaning</option>
+                  <option>Other</option>
+                </select>
+              </div>
+              <div class="col ">
+                <label for="date">Due Date</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="date"
+                  name="date"
+                  onfocus="highlightElements(this)"
+                  onblur="unhighlightElements(this)"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          </div>
+          <button type="submit" class="btn btn-secondary"><i class="fa-sharp fas fa-plus  mr-2"></i>Add Task</button>
+          <button type="button" class="btn btn-danger" onclick="deleteTasks()"><i class="fas fa-trash mr-2"></i>Delete Task</button>
+        </form>
+        <div class="card">
+          <ul class="list-group list-group-flush">
+            <% for (let i of tasks) { %> 
+            <li class="list-group-item" id="<%= i._id %>">
+              <div class="custom-control custom-checkbox d-flex align-items-center">
+                <input type="checkbox" class="custom-control-input" id="task<%= i._id %>" onchange="selectTasks(this, '<%= i._id %>')">
+                <label class="custom-control-label" for="task<%= i._id %>"><%= i.task %></label>
+                <button type="button" class="btn btn-primary ml-auto"><%= i.category %></button>
+              </div>
+              <div class="d-flex align-items-center">
+                <i class="far fa-calendar-alt mr-2"></i>
+                <div>
+                  <span class="date"><%= new Date(i.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) %></span>
+                </div>
+              </div>
+            </li>
+            <% } %> 
+          </ul>
+          
+        </div>        
+      </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+    <script src="/js/home.js"></script>
+  </body>
+</html>
+
